@@ -7,7 +7,7 @@ import CompanyContext from './Context/CompanyContext';
 import Pagenation from './Components/Pagenation';
 
 const App = () => {
-const {filterCompanyData, loading, error} = useContext(CompanyContext);
+const {currentCompanies, loading, error} = useContext(CompanyContext);
 
     return (
     <div className='bg-gray-400 w-full min-h-screen ' >
@@ -24,14 +24,14 @@ const {filterCompanyData, loading, error} = useContext(CompanyContext);
             {error}
           </div>
         )}
-          {!loading && !error && filterCompanyData.length > 0 && 
-          filterCompanyData?.map((item) => {
+          {!loading && !error && currentCompanies.length > 0 && 
+          currentCompanies?.map((item) => {
             return(
               <CompanyCard key={item.id} companies={item}/>
             ) 
             
         })}
-        {!loading && !error && filterCompanyData.length === 0 && (
+        {!loading && !error && currentCompanies.length === 0 && (
           <p className='text-gray-600 text-lg mt-10'>
             No Companies found matching.
           </p>
