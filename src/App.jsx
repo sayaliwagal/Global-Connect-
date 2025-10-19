@@ -9,9 +9,9 @@ const App = () => {
 const {filterCompanyData, loading, error} = useContext(CompanyContext);
 
     return (
-    <div className='bg-gray-400 w-full min-h-screen p-2' >
+    <div className='bg-gray-400 w-full min-h-screen ' >
       <NavBar/>
-      <h3 className='mb-4 text-2xl font-bold p-2'>List Of Companies </h3>
+      <h3 className='m-5 p-6 text-center text-3xl font-extrabold text-slate-800 shadow-lg'>List Of Companies </h3>
       <div className='flex flex-wrap justify-center item-center gap-6 '>
         {loading && (
           <div className="flex justify-center">
