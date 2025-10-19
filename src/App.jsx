@@ -4,6 +4,7 @@ import useCallApi from './Hook/useCallApi';
 import { RingLoader } from 'react-spinners';
 import NavBar from './Components/NavBar';
 import CompanyContext from './Context/CompanyContext';
+import Pagenation from './Components/Pagenation';
 
 const App = () => {
 const {filterCompanyData, loading, error} = useContext(CompanyContext);
@@ -30,12 +31,14 @@ const {filterCompanyData, loading, error} = useContext(CompanyContext);
             ) 
             
         })}
-        {/* {!loading && !error && filterCompanyData.length === 0 && (
+        {!loading && !error && filterCompanyData.length === 0 && (
           <p className='text-gray-600 text-lg mt-10'>
-            No Companies found matching `{searchText}`.
+            No Companies found matching.
           </p>
-        )} */}
+        )}
         </div>
+        {/* Pagination Component */}
+        <Pagenation />
     </div>
   )
 }

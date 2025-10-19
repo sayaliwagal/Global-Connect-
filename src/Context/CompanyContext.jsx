@@ -10,7 +10,8 @@ export const CompanyProvider = ({ children }) => {
   const [selectedLocation, setSelectedLocation] = useState("All");
   const [selectedIndustry, setSelectedIndustry] = useState("All");
   const [sortOrder, setSortOrder] = useState("A-Z");
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
   const api_key = import.meta.env.VITE_COMPANY_DATA_API_KEY;
   const { data, loading, error } = useCallApi(
     `https://api.mockaroo.com/api/12b5e230?count=100&key=${api_key}`
@@ -34,6 +35,7 @@ export const CompanyProvider = ({ children }) => {
 
   const handleSearchClick = () => {
     setFilterCompanyData(filterValues(companyData, searchText));
+    setCurrentPage(1);
   };
 
   //Filter by selectedLocation
@@ -41,6 +43,7 @@ export const CompanyProvider = ({ children }) => {
     if (selectedLocation === "All") return; //do nothing
     const res = companyData.filter((c) => c.location === selectedLocation);
     setFilterCompanyData(res);
+    setCurrentPage(1);
   }, [selectedLocation, companyData]);
 
   //Unique location for dropdown
@@ -59,6 +62,7 @@ export const CompanyProvider = ({ children }) => {
     if (selectedIndustry === "All") return; //do nothing
     const res = companyData.filter((c) => c.industry === selectedIndustry);
     setFilterCompanyData(res);
+    setCurrentPage(1);
   }, [selectedIndustry, companyData]);
 
   //Unique location for dropdown
@@ -71,14 +75,30 @@ export const CompanyProvider = ({ children }) => {
       })
     ),
   ];
+  useEffect(() => {
 
-  const sortedCompany = companyData.sort((a, b) => {
-    if(sortOrder === "A-Z"){
+    const sortedCompany = [...filterCompanyData].sort((a, b) => {
+      if(sortOrder === "A-Z"){
         return a.companyName.localeCompare(b.companyName);
-    }else{
+      }else{
         return b.companyName.localeCompare(a.companyName);
-    }
-  });
+      }
+    });
+    setFilterCompanyData(sortedCompany)
+  }, [sortOrder]);
+
+//Pagination Caalculation 
+const totalPages = Math.ceil(filterCompanyData.length / itemsPerPage);
+const currentCompanies = filterCompanyData.slice(
+  (currentPage - 1) * itemsPerPage,
+  currentPage * itemsPerPage
+);
+
+const goToNextPage = () =>
+  setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const goToPrevPage = () => setCurrentPage((prev) =>
+  Math.max(prev - 1, 1)); 
+
 
   return (
     <CompanyContext.Provider
@@ -96,9 +116,14 @@ export const CompanyProvider = ({ children }) => {
         selectedIndustry,
         setSelectedIndustry,
         uniqueIndustrys,
-        sortedCompany,
+        // sortedCompany,
         sortOrder,
-        setSortOrder
+        setSortOrder,
+        currentCompanies,
+        currentPage,
+        totalPages,
+        goToNextPage,
+        goToPrevPage,
       }}
     >
       {children}
