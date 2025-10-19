@@ -3,6 +3,7 @@ import CompanyContext from "../Context/CompanyContext";
 import Search from "./Search";
 import LocationFilters from "./LocationFilters";
 import IndustryFilters from "./IndustryFilters";
+import Sort from "./Sort";
 
 const NavBar = () => {
     const { selectedLocation, setSelectedLocation, uniqueLocations,  selectedIndustry, setSelectedIndustry,
@@ -15,6 +16,8 @@ const NavBar = () => {
       <LocationFilters />
       <h3>Industry :</h3>
        <IndustryFilters />
+       <h3>Sort by company name: </h3>
+       <Sort />
     </div>
   );
 };

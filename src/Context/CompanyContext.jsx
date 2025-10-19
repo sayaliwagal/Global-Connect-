@@ -9,6 +9,7 @@ export const CompanyProvider = ({ children }) => {
   const [searchText, setSearchText] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("All");
   const [selectedIndustry, setSelectedIndustry] = useState("All");
+  const [sortOrder, setSortOrder] = useState("A-Z");
 
   const api_key = import.meta.env.VITE_COMPANY_DATA_API_KEY;
   const { data, loading, error } = useCallApi(
@@ -70,6 +71,15 @@ export const CompanyProvider = ({ children }) => {
       })
     ),
   ];
+
+  const sortedCompany = companyData.sort((a, b) => {
+    if(sortOrder === "A-Z"){
+        return a.companyName.localeCompare(b.companyName);
+    }else{
+        return b.companyName.localeCompare(a.companyName);
+    }
+  });
+
   return (
     <CompanyContext.Provider
       value={{
@@ -86,6 +96,9 @@ export const CompanyProvider = ({ children }) => {
         selectedIndustry,
         setSelectedIndustry,
         uniqueIndustrys,
+        sortedCompany,
+        sortOrder,
+        setSortOrder
       }}
     >
       {children}
