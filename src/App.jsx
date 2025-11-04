@@ -10,7 +10,7 @@ const App = () => {
 const {currentCompanies, loading, error} = useContext(CompanyContext);
 
     return (
-    <div className='bg-gray-400 w-full min-h-screen ' >
+    <div className='bg-gray-400 w-full min-h-screen overflow-x-hidden justify-center items-center' >
       <NavBar/>
       <h3 className='m-5 p-6 text-center text-3xl font-extrabold text-slate-800 shadow-lg'>List Of Companies </h3>
       <div className='flex flex-wrap justify-center item-center gap-6 '>

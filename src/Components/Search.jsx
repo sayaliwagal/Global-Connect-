@@ -4,25 +4,26 @@ import CompanyContext from "../Context/CompanyContext";
 const Search = () => {
   const { searchText, setSearchText, handleSearchClick } =
     useContext(CompanyContext);
+
   return (
-      <div className="flex w-full items-center">
+    <div className="w-full overflow-x-hidden px-2">
+      <div className="flex w-full max-w-md mx-auto justify-center items-center">
         <input
           type="search"
-          className="flex-1 px-4 py-2 rounded-l-full bg-slate-700 text-white placeholder-gray-300 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          className="flex-1 min-w-0 px-4 py-2 rounded-l-full bg-slate-700 text-white placeholder-gray-300 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-yellow-400"
           placeholder="Enter Company Name...."
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           id="search"
         />
         <button
-          className="bg-yellow-500 hover:bg-yellow-600 px-5 py-2 rounded-r-full flex items-center gap-2 font-semibold text-slate-900 transition-all duration-300"
-          onClick={() => {
-            handleSearchClick();
-          }}
+          className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded-r-full flex items-center gap-2 font-semibold text-slate-900 transition-all duration-300 whitespace-nowrap"
+          onClick={handleSearchClick}
         >
           Search
         </button>
       </div>
+    </div>
   );
 };
 
